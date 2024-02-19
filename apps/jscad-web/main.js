@@ -12,7 +12,7 @@ import { OrbitControl } from '@jscadui/orbit'
 import { genParams } from '@jscadui/params'
 import { initMessaging } from '@jscadui/postmessage'
 
-import defaultCode from './examples/jscad.example.js'
+const defaultCode = ''
 import * as editor from './src/editor.js'
 import * as engine from './src/engine.js'
 import * as exporter from './src/exporter.js'
@@ -29,7 +29,7 @@ let currentBase = appBase
 const toUrl = path => new URL(path, appBase).toString()
 
 const viewState = new ViewState()
-viewState.onRequireReRender = ()=>paramChangeCallback(lastRunParams)
+viewState.onRequireReRender = () => paramChangeCallback(lastRunParams)
 
 const gizmo = (window.gizmo = new Gizmo())
 byId('overlay').parentNode.appendChild(gizmo)
@@ -38,7 +38,7 @@ let projectName = 'jscad'
 let model = []
 
 // load default model unless another model was already loaded
-let loadDefault = true
+let loadDefault = false
 
 const ctrl = (window.ctrl = new OrbitControl([byId('viewer')], { ...viewState.camera, alwaysRotate: false }))
 
@@ -55,10 +55,10 @@ ctrl.oninput = state => updateFromCtrl(state)
 gizmo.oncam = ({ cam }) => ctrl.animateToCommonCamera(cam)
 
 let sw
-async function resetFileRefs(){
+async function resetFileRefs() {
   editor.setFiles([])
   saveMap = {}
-  if(sw){
+  if (sw) {
     delete sw.fileToRun
     await clearFs(sw)
   }
@@ -216,14 +216,14 @@ const paramChangeCallback = async params => {
   }
   working = true
   let result
-  try{
+  try {
     result = await sendCmdAndSpin('runMain', { params, smooth: viewState.smoothRender })
     lastRunParams = params
-  } finally{
+  } finally {
     working = false
   }
-  handlers.entities(result, {smooth: viewState.smoothRender})
-  if(lastParams && lastParams != params) paramChangeCallback(lastParams)
+  handlers.entities(result, { smooth: viewState.smoothRender })
+  if (lastParams && lastParams != params) paramChangeCallback(lastParams)
 }
 
 const runScript = async ({ script, url = './jscad.model.js', base = currentBase, root }) => {
@@ -247,16 +247,16 @@ engine.init().then(viewer => {
 })
 
 let saveMap = {}
-setInterval(async ()=>{
-  for(let p in saveMap){
+setInterval(async () => {
+  for (let p in saveMap) {
     let handle = saveMap[p]
     let file = await handle.getFile()
-    if(file.lastModified > handle.lastMod){
+    if (file.lastModified > handle.lastMod) {
       handle.lastMod = file.lastModified
       editor.filesChanged([file])
     }
   }
-},500)
+}, 500)
 
 editor.init(
   defaultCode,
@@ -277,7 +277,7 @@ editor.init(
     console.log('save file', path)
     let pathArr = path.split('/')
     let fileHandle = (await sw?.getFile(path))?.fileHandle
-    if(!fileHandle) fileHandle = saveMap[path]
+    if (!fileHandle) fileHandle = saveMap[path]
     if (!fileHandle) {
       const opts = {
         suggestedName: pathArr[pathArr.length - 1],
@@ -296,10 +296,10 @@ editor.init(
       await writable.write(script)
       await writable.close()
       saveMap[path] = fileHandle
-      fileHandle.lastMod = Date.now()+500
+      fileHandle.lastMod = Date.now() + 500
     }
   },
-  path=>sw?.getFile(path)
+  path => sw?.getFile(path)
 )
 menu.init(loadExample)
 welcome.init()
