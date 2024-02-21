@@ -99,8 +99,8 @@
   <div id="dropModal">drop jscad script to execute it</div>
 
   <script>
-    if (!localStorage.getItem('engine.theme')) localStorage.setItem('engine.theme', 'dark')
     // load visible preferences immediately to prevent flash of content
+    if (!localStorage.getItem('engine.theme')) localStorage.setItem('engine.theme', 'dark')
     if (localStorage.getItem('engine.theme') === 'dark') {
       document.body.classList.add('dark')
     }
@@ -115,6 +115,9 @@
     }
   </script>
   <script type="module" src="./main.js"></script>
+  <script>
+    if (!localStorage.getItem('export')) document.querySelector('.export-panel').style.display = 'none'
+  </script>
 </body>
 
 </html>
