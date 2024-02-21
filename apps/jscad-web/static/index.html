@@ -86,7 +86,7 @@
       <div id="menu-content">
         <h2>Options</h2>
         <ul>
-          <li><label for="dark-mode">Dark Mode</label><input type="checkbox" id="dark-mode"></li>
+          <li><label for="dark-mode">Dark Mode</label><input type="checkbox" id="dark-mode" checked></li>
           <li><label for="show-axis">Show Axis</label><input type="checkbox" id="show-axis" checked></li>
           <li><label for="show-grid">Show Grid</label><input type="checkbox" id="show-grid" checked></li>
           <li><label for="smooth-render">Smooth Render</label><input type="checkbox" id="smooth-render" checked></li>
@@ -99,6 +99,7 @@
   <div id="dropModal">drop jscad script to execute it</div>
 
   <script>
+    if (!localStorage.getItem('engine.theme')) localStorage.setItem('engine.theme', 'dark')
     // load visible preferences immediately to prevent flash of content
     if (localStorage.getItem('engine.theme') === 'dark') {
       document.body.classList.add('dark')
