@@ -1,4 +1,9 @@
-import { examples } from './examples.js'
+let examples
+try {
+  examples = await (await fetch(new URL(location.hash.slice(1)).origin + '/models')).json()
+} catch (e) {
+  examples = [{ name: 'Error loading models', source: '.' }]
+}
 
 const menu = document.getElementById('menu')
 
