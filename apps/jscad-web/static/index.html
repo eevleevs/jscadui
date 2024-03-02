@@ -100,7 +100,9 @@
 
   <script>
     // load visible preferences immediately to prevent flash of content
-    if (!localStorage.getItem('engine.theme')) localStorage.setItem('engine.theme', 'dark')
+    localStorage['engine.showAxis'] ??= 'false'
+    localStorage['engine.showGrid'] ??= 'false'
+    localStorage['engine.theme'] ??= 'dark'
     if (localStorage.getItem('engine.theme') === 'dark') {
       document.body.classList.add('dark')
     }
