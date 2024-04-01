@@ -9,7 +9,7 @@
   --cube-fg: #444;
   --cube-bg-hover: #eee9;
   --cube-fg-hover: #444;
-  --cube-corner-radius: 5px;
+  --cube-corner-radius: 0px;
 
   width: var(--cube-size);
   height: var(--cube-size);
@@ -80,12 +80,22 @@
 .cube__face--N   { transform: rotateX( 90deg) var(--cube-transform-common) rotateZ(180deg);}
 .cube__face--S   { transform: rotateX(-90deg) var(--cube-transform-common);}
 
-
-
-.cube__face--T .bg   { border-left-color: var(--cube-y-color); border-bottom-color: var(--cube-x-color);}
-.cube__face--B .bg   { border-left-color: var(--cube-y-color); border-top-color: var(--cube-x-color);}
-/* .cube__face--E .bg   { } */
-.cube__face--W .bg   { border-right-color: var(--cube-z-color); border-bottom-color: var(--cube-y-color); border-top-color: var(--cube-y-color);}
-/* .cube__face--N .bg   { } */
-.cube__face--S .bg   { border-left-color: var(--cube-z-color); border-bottom-color: var(--cube-x-color); border-top-color: var(--cube-x-color);}
+.cube__face--T .bg, .cube__face--B .bg { 
+  border-bottom-color: var(--cube-x-color);
+  border-left-color: var(--cube-y-color);
+  border-right-color: var(--cube-y-color);
+  border-top-color: var(--cube-x-color);
+}
+.cube__face--E .bg, .cube__face--W .bg { 
+  border-bottom-color: var(--cube-y-color);
+  border-left-color: var(--cube-z-color);
+  border-right-color: var(--cube-z-color);
+  border-top-color: var(--cube-y-color);
+}
+.cube__face--N .bg, .cube__face--S .bg { 
+  border-bottom-color: var(--cube-x-color);
+  border-left-color: var(--cube-z-color);
+  border-right-color: var(--cube-z-color);
+  border-top-color: var(--cube-x-color);
+}
 

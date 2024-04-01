@@ -84,7 +84,8 @@ export class ViewState {
 
   updateGrid() {
     const { showAxis, showGrid, theme } = this
-    this.axes = showAxis ? [makeAxes(50)] : undefined
+    // this.axes = showAxis ? [makeAxes(50)] : undefined
+    this.axes = undefined
     this.grid = showGrid ? makeGrid({ size: 200, color1: theme.grid1, color2: theme.grid2 }) : undefined
     this.updateScene()
   }
