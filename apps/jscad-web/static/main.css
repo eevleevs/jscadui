@@ -79,7 +79,9 @@ jscadui-gizmo {
   right: 15px;
   --cube-size: 100px;
   --cube-line-color: #f2f2f2dd;
-/*  --cube-corner-radius: 5px;*/
+  --cube-x-color: red;
+  --cube-y-color: limegreen;
+  --cube-z-color: royalblue;
 }
 .dark jscadui-gizmo {
   --cube-line-color: #333333dd;
