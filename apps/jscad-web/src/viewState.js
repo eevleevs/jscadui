@@ -35,6 +35,7 @@ export class ViewState {
 
   setAxes(visible) {
     this.showAxis = visible
+    this.setParameterAxes(visible)
     this.updateGrid()
     this.saveState()
   }
@@ -45,10 +46,16 @@ export class ViewState {
     this.saveState()
   }
 
+  setParameterAxes(visible) {
+    document.querySelectorAll('.parameter-axis').forEach(
+      e => e.style.display = visible ? 'inline' : 'none'
+    )
+  }
+
   setSmoothRender(smoothRender, fireEvent = true) {
     this.smoothRender = smoothRender
     this.saveState()
-    if(fireEvent) this.onRequireReRender()
+    if (fireEvent) this.onRequireReRender()
   }
 
   setTheme(themeName) {
@@ -96,7 +103,7 @@ export class ViewState {
     if (grid) items.push({ id: 'grid', items: grid })
     if (model) items.push({ id: 'model', items: model })
 
-    this.viewer?.setScene({ items }, {smooth:this.smoothRender})
+    this.viewer?.setScene({ items }, { smooth: this.smoothRender })
   }
 
   setEngine(viewer) {
@@ -108,19 +115,21 @@ export class ViewState {
   }
 
   loadState() {
-    this.themeName = localStorage.getItem('engine.theme') || 'light'
+    this.themeName = localStorage.getItem('engine.theme') || 'dark'
     if (this.themeName === 'dark') {
       byId('dark-mode').setAttribute('checked', 'checked')
       document.body.classList.add('dark')
     }
     this.theme = themes[this.themeName]
-    this.showAxis = localStorage.getItem('engine.showAxis') !== 'false'
+    this.showAxis = (localStorage.getItem('engine.showAxis') ?? 'true') !== 'false'
     byId('show-axis').checked = this.showAxis
-    this.showGrid = localStorage.getItem('engine.showGrid') !== 'false'
+    this.setParameterAxes(this.showAxis)
+    this.showGrid = (localStorage.getItem('engine.showGrid') ?? 'false') !== 'false'
     byId('show-grid').checked = this.showGrid
-    this.smoothRender = localStorage.getItem('engine.smoothRender') === 'true'
+    this.smoothRender = (localStorage.getItem('engine.smoothRender') ?? 'false') === 'true'
     byId('smooth-render').checked = this.smoothRender
     const cameraLocation = localStorage.getItem('camera.location')
+      ?? '{"target":[130,-130,-160],"rx":0.7,"rz":0.9,"len":3000,"animDuration":200,"el":[{}],"rxRatio":0.01,"rzRatio":0.01}'
     this.camera = cameraLocation ? JSON.parse(cameraLocation) : { position: [180, -180, 220] }
   }
 
@@ -131,5 +140,5 @@ export class ViewState {
     localStorage.setItem('engine.smoothRender', this.smoothRender)
   }
 
-  onRequireReRender(){}
+  onRequireReRender() { }
 }

@@ -610,7 +610,6 @@ p {
 }
 
 #welcome {
-  display: none;
   position: absolute;
   top: 20%;
   padding: 30px;

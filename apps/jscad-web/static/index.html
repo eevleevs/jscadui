@@ -103,16 +103,12 @@
 
   <script>
     // load visible preferences immediately to prevent flash of content
-    localStorage['camera.location'] ??= '{"target":[130,-130,-160],"rx":0.7,"rz":0.9,"len":3000,"animDuration":200,"el":[{}],"rxRatio":0.01,"rzRatio":0.01}'
-    localStorage['engine.showAxis'] ??= 'false'
-    localStorage['engine.showGrid'] ??= 'false'
-    localStorage['engine.theme'] ??= 'dark'
     if (localStorage.getItem('engine.theme') === 'dark') {
       document.body.classList.add('dark')
     }
-    if (localStorage.getItem('welcome.dismissed')) {
-      document.getElementById('welcome').remove()
-    }
+    // if (localStorage.getItem('welcome.dismissed')) {
+    document.getElementById('welcome').remove()
+    // }
     if (localStorage.getItem('editor.closed') === 'true' || window.innerWidth < 768) {
       document.getElementById('editor').classList.add('closed')
     } else if (localStorage.getItem('editor.width')) {
